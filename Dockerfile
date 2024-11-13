@@ -14,7 +14,10 @@ COPY plugins ${AIRFLOW_HOME}/plugins
 
 #initial dags
 COPY dags /dags
-RUN mkdir ${AIRFLOW_HOME}/dags 
+# RUN mkdir ${AIRFLOW_HOME}/dags 
+
+# RUN groupadd -r airflow 
+# && useradd -r -g airflow airflow
 
 RUN chown -R airflow:airflow ${AIRFLOW_HOME}
 RUN chmod 777 -R /dags
@@ -23,7 +26,7 @@ USER airflow
 
 #requirements
 COPY config/requirements.txt .
-RUN pip install --user --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 
 EXPOSE 8080 5555 8793
